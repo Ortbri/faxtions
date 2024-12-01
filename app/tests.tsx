@@ -6,7 +6,7 @@ export default function Tests() {
   return (
     <View>
       <Text>Tests</Text>
-      <Button onPress={() => console.log('clicked')}>Click me</Button>
+      {/* <Button onPress={() => console.log('clicked')}>Click me</Button> */}
     </View>
   );
 }

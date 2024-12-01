@@ -23,17 +23,5 @@
       "channel": "production",
       "autoIncrement": true
     }
-  },
-  "submit": {
-    "production": {
-      "ios": {
-        "appleId": "brian.ort02@icloud.com",
-        "appleTeamId": "1234567890",
-        "ascAppId": "1234567890"
-      },
-      "android": {
-        "track": "internal"
-      }
-    }
   }
 }
