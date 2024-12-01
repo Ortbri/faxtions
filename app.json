@@ -4,12 +4,12 @@
     "slug": "faxion",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/faxionapp.png",
+    "icon": "./src/assets/images/faxionapp.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/images/faxionapp.png",
+      "image": "./src/assets/images/faxionapp.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -19,7 +19,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/faxionapp.png",
+        "foregroundImage": "./src/assets/images/faxionapp.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.ortbit02.faxion"
@@ -27,11 +27,9 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./src/assets/images/faxionapp.png"
     },
-    "plugins": [
-      "expo-router"
-    ],
+    "plugins": ["expo-router"],
     "experiments": {
       "typedRoutes": true
     },
