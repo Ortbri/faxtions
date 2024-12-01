@@ -1,21 +1,39 @@
 {
   "cli": {
-    "version": ">= 13.3.0",
+    "version": ">= 6.0.0",
     "appVersionSource": "remote"
   },
   "build": {
     "development": {
       "developmentClient": true,
-      "distribution": "internal"
+      "distribution": "internal",
+      "channel": "development"
     },
-    "preview": {
-      "distribution": "internal"
+    "development-simulator": {
+      "extends": "development",
+      "ios": {
+        "simulator": true
+      },
+      "android": {
+        "buildType": "apk"
+      },
+      "channel": "development-simulator"
     },
     "production": {
+      "channel": "production",
       "autoIncrement": true
     }
   },
   "submit": {
-    "production": {}
+    "production": {
+      "ios": {
+        "appleId": "brian.ort02@icloud.com",
+        "appleTeamId": "",
+        "ascAppId": ""
+      },
+      "android": {
+        "track": "internal"
+      }
+    }
   }
 }
