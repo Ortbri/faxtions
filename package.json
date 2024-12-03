@@ -24,6 +24,7 @@
     "@gorhom/bottom-sheet": "^5.0.6",
     "@react-navigation/native": "^7.0.0",
     "@supabase/supabase-js": "^2.46.2",
+    "ai": "^4.0.10",
     "expo": "~52.0.11",
     "expo-blur": "~13.0.2",
     "expo-dev-client": "~5.0.4",
