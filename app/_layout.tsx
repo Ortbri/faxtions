@@ -55,7 +55,10 @@ function RootLayoutNav() {
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+          <Stack.Screen name="settings" options={{ presentation: 'formSheet' }} />
+          <Stack.Screen name="chat" options={{}} />
           <Stack.Screen name="tests" options={{}} />
+          <Stack.Screen name="logWorkout" options={{ presentation: 'modal' }} />
         </Stack>
       </ThemeProvider>
     </GestureHandlerRootView>
