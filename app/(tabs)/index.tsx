@@ -1,33 +1,64 @@
-import { StyleSheet } from 'react-native';
+import { generateAPIUrl } from '@/utils/generateApiUrl';
+import { useChat } from '@ai-sdk/react';
+import { fetch as expoFetch } from 'expo/fetch';
+import { SafeAreaView, ScrollView, Text, TextInput, View } from 'react-native';
 
-import EditScreenInfo from '@/components/EditScreenInfo';
-import { Text, View } from '@/components/Themed';
-import { Link } from 'expo-router';
+export default function App() {
+  const { messages, error, handleInputChange, input, handleSubmit } = useChat({
+    fetch: expoFetch as unknown as typeof globalThis.fetch,
+    api: generateAPIUrl('/api/chat'),
+    onError: (error) => console.error(error, 'ERROR'),
+  });
 
-export default function TabOneScreen() {
+  if (error) return <Text>{error.message}</Text>;
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
-      <Link href="/tests">Go to tests</Link>
-    </View>
+    <SafeAreaView style={{ height: '100%' }}>
+      <View
+        style={{
+          height: '95%',
+          display: 'flex',
+          flexDirection: 'column',
+          paddingHorizontal: 8,
+        }}
+      >
+        <ScrollView style={{ flex: 1 }}>
+          {messages.map((m) => (
+            <View key={m.id} style={{ marginVertical: 8 }}>
+              <View>
+                <Text style={{ fontWeight: 700 }}>{m.role}</Text>
+                {m.toolInvocations ? (
+                  <Text>{JSON.stringify(m.toolInvocations, null, 2)}</Text>
+                ) : (
+                  <Text>{m.content}</Text>
+                )}
+              </View>
+            </View>
+          ))}
+        </ScrollView>
+
+        <View style={{ marginTop: 8 }}>
+          <TextInput
+            style={{ backgroundColor: 'white', padding: 8 }}
+            placeholder="Say something..."
+            value={input}
+            onChange={(e) =>
+              handleInputChange({
+                ...e,
+                target: {
+                  ...e.target,
+                  value: e.nativeEvent.text,
+                },
+              } as unknown as React.ChangeEvent<HTMLInputElement>)
+            }
+            onSubmitEditing={(e) => {
+              handleSubmit(e);
+              e.preventDefault();
+            }}
+            autoFocus={true}
+          />
+        </View>
+      </View>
+    </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});
