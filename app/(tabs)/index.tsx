@@ -27,11 +27,7 @@ export default function App() {
             <View key={m.id} style={{ marginVertical: 8 }}>
               <View>
                 <Text style={{ fontWeight: 700 }}>{m.role}</Text>
-                {m.toolInvocations ? (
-                  <Text>{JSON.stringify(m.toolInvocations, null, 2)}</Text>
-                ) : (
-                  <Text>{m.content}</Text>
-                )}
+                <Text>{m.content}</Text>
               </View>
             </View>
           ))}
