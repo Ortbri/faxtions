@@ -29,9 +29,24 @@
       "output": "server",
       "favicon": "./src/assets/images/faxtionApp.png"
     },
-    "plugins": ["expo-router"],
+    "plugins": [
+      "expo-router",
+
+      [
+        "expo-splash-screen",
+        {
+          "image": "./src/assets/images/faxtionApp.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff"
+        }
+      ],
+      "expo-font"
+    ],
     "experiments": {
-      "typedRoutes": true
+      "typedRoutes": true,
+      "reactServerComponentRoutes": true,
+      "reactCanary": true
     },
     "extra": {
       "router": {
