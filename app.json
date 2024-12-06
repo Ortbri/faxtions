@@ -45,7 +45,7 @@
     ],
     "experiments": {
       "typedRoutes": true,
-      "reactServerComponentRoutes": true,
+      // "reactServerComponentRoutes": true,
       "reactCanary": true
     },
     "extra": {
