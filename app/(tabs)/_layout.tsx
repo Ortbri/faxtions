@@ -1,13 +1,12 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import Octicons from '@expo/vector-icons/Octicons';
 import { Link, Tabs, router } from 'expo-router';
-import React from 'react';
+import type React from 'react';
 import { Pressable } from 'react-native';
 
 import { useClientOnlyValue } from '@/components/useClientOnlyValue';
 import { useColorScheme } from '@/components/useColorScheme';
 import Colors from '@/constants/Colors';
-import { StyleSheet } from 'react-native-unistyles';
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
@@ -84,16 +83,3 @@ export default function TabLayout() {
     </Tabs>
   );
 }
-
-const styles = StyleSheet.create((theme, rt) => ({
-  container: {
-    flex: 1,
-    backgroundColor: theme.colors.backgroundColor,
-  },
-  tabBar: {
-    backgroundColor: theme.colors.backgroundColor,
-  },
-  iconColor: {
-    color: theme.colors.text,
-  },
-}));

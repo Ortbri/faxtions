@@ -1,5 +1,4 @@
 import { ScrollViewStyleReset } from 'expo-router/html';
-import '../unistyles'; // <-- file that initializes Unistyles
 
 // This file is web-only and used to configure the root HTML for every
 // web page during static rendering.
