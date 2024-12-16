@@ -44,9 +44,7 @@
       "expo-font"
     ],
     "experiments": {
-      "typedRoutes": true,
-      // "reactServerComponentRoutes": true,
-      "reactCanary": true
+      "typedRoutes": true
     },
     "extra": {
       "router": {
