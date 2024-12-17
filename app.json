@@ -26,7 +26,7 @@
     },
     "web": {
       "bundler": "metro",
-      "output": "server",
+      "output": "single",
       "favicon": "./src/assets/images/faxtionApp.png"
     },
     "plugins": [
@@ -44,7 +44,8 @@
       "expo-font"
     ],
     "experiments": {
-      "typedRoutes": true
+      "typedRoutes": true,
+      "reactServerFunctions": true
     },
     "extra": {
       "router": {
