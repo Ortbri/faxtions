@@ -1,9 +1,10 @@
-import useHaptics from '@/src/hooks/useHaptics';
 import '../global.css';
-import { setAndroidNavigationBar } from '@/src/lib/android-navigation-bar';
-import { NAV_THEME } from '@/src/lib/contants';
-import { useColorScheme } from '@/src/lib/useColorScheme';
+
+import { setAndroidNavigationBar } from '@/lib/android-navigation-bar';
+import { NAV_THEME } from '@/lib/contants';
+import { useColorScheme } from '@/lib/useColorScheme';
 import { Ionicons } from '@expo/vector-icons';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { DarkTheme, DefaultTheme, type Theme, ThemeProvider } from '@react-navigation/native';
 import { SplashScreen, Stack, router } from 'expo-router';
@@ -28,12 +29,11 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const { colorScheme, setColorScheme, isDarkColorScheme } = useColorScheme();
   const [isColorSchemeLoaded, setIsColorSchemeLoaded] = React.useState(false);
-  const { lightHaptic } = useHaptics();
 
   /* ------------------------------- header text ------------------------------ */
   const headerButtonClose = () => {
     return (
-      <Pressable onPressIn={lightHaptic} onPressOut={() => router.back()}>
+      <Pressable onPressOut={() => router.back()}>
         <Ionicons name="close" size={24} color={isDarkColorScheme ? 'white' : 'black'} />
       </Pressable>
     );
@@ -79,20 +79,19 @@ export default function RootLayout() {
   /* --------------------------------- return --------------------------------- */
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      {/* <BottomSheetModalProvider> */}
-      <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
-        <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-          <Stack.Screen
-            name="chat"
-            options={{ presentation: 'fullScreenModal', headerLeft: headerButtonClose }}
-          />
-        </Stack>
-      </ThemeProvider>
-      {/* </BottomSheetModalProvider> */}
-      {/* portal host goes here */}
+      <BottomSheetModalProvider>
+        <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
+          <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen
+              name="chat"
+              options={{ presentation: 'fullScreenModal', headerLeft: headerButtonClose }}
+            />
+          </Stack>
+        </ThemeProvider>
+        {/* portal provider */}
+      </BottomSheetModalProvider>
     </GestureHandlerRootView>
   );
 }

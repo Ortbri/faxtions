@@ -1,11 +1,8 @@
-import useHaptics from '@/src/hooks/useHaptics';
-import { useClientOnlyValue } from '@/src/lib/useClientOnlyValue.web';
-import { useColorScheme } from '@/src/lib/useColorScheme';
+import useHaptics from '@/hooks/useHaptics';
+import { useClientOnlyValue } from '@/lib/useClientOnlyValue.web';
 import Octicons from '@expo/vector-icons/Octicons';
-import { useTheme } from '@react-navigation/native';
-import { Link, Tabs, router } from 'expo-router';
+import { Tabs, router } from 'expo-router';
 import type React from 'react';
-import { Pressable } from 'react-native-gesture-handler';
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
@@ -16,25 +13,19 @@ function TabBarIcon(props: {
 }
 
 export default function TabLayout() {
-  const { colors } = useTheme();
   const { lightHaptic } = useHaptics();
 
   return (
     <Tabs
       screenOptions={{
         tabBarShowLabel: false,
-        tabBarStyle: {
-          backgroundColor: colors.background,
-          borderColor: 'transparent',
-        },
-        headerTitle: 'hello',
         headerShown: useClientOnlyValue(false, true),
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
-          title: '',
+          title: 'Home',
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
         }}
       />
@@ -56,6 +47,7 @@ export default function TabLayout() {
         name="profile"
         options={{
           title: 'Profile',
+          headerTitle: 'Profile',
           tabBarIcon: ({ color }) => <TabBarIcon name="person" color={color} />,
         }}
       />
