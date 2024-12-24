@@ -1,64 +1,26 @@
-import '~/global.css';
+import useHaptics from '@/src/hooks/useHaptics';
+import '../global.css';
+import { setAndroidNavigationBar } from '@/src/lib/android-navigation-bar';
+import { NAV_THEME } from '@/src/lib/contants';
+import { useColorScheme } from '@/src/lib/useColorScheme';
+import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import type { Theme, ThemeProvider } from '@react-navigation/native';
-import { SplashScreen, Stack } from 'expo-router';
+import { DarkTheme, DefaultTheme, type Theme, ThemeProvider } from '@react-navigation/native';
+import { SplashScreen, Stack, router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
 import { Platform } from 'react-native';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { NAV_THEME } from '~/src/lib/contants';
-import { useColorScheme } from '~/src/lib/useColorScheme';
+import { GestureHandlerRootView, Pressable } from 'react-native-gesture-handler';
+export { ErrorBoundary } from 'expo-router';
 
 const LIGHT_THEME: Theme = {
-  dark: false,
+  ...DefaultTheme,
   colors: NAV_THEME.light,
-  fonts: {
-    regular: {
-      fontFamily: '',
-      fontWeight: 'bold',
-    },
-    medium: {
-      fontFamily: '',
-      fontWeight: 'bold',
-    },
-    bold: {
-      fontFamily: '',
-      fontWeight: 'bold',
-    },
-    heavy: {
-      fontFamily: '',
-      fontWeight: 'bold',
-    },
-  },
 };
-
 const DARK_THEME: Theme = {
-  dark: true,
+  ...DarkTheme,
   colors: NAV_THEME.dark,
-  fonts: {
-    regular: {
-      fontFamily: '',
-      fontWeight: 'bold',
-    },
-    medium: {
-      fontFamily: '',
-      fontWeight: 'bold',
-    },
-    bold: {
-      fontFamily: '',
-      fontWeight: 'bold',
-    },
-    heavy: {
-      fontFamily: '',
-      fontWeight: 'bold',
-    },
-  },
 };
-
-export {
-  // Catch any errors thrown by the Layout component.
-  ErrorBoundary,
-} from 'expo-router';
 
 // Prevent the splash screen from auto-hiding before getting the color scheme.
 SplashScreen.preventAutoHideAsync();
@@ -66,6 +28,23 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const { colorScheme, setColorScheme, isDarkColorScheme } = useColorScheme();
   const [isColorSchemeLoaded, setIsColorSchemeLoaded] = React.useState(false);
+  const { lightHaptic } = useHaptics();
+
+  /* ------------------------------- header text ------------------------------ */
+  const headerButtonClose = () => {
+    return (
+      <Pressable onPressIn={lightHaptic} onPressOut={() => router.back()}>
+        <Ionicons name="close" size={24} color={isDarkColorScheme ? 'white' : 'black'} />
+      </Pressable>
+    );
+  };
+
+  /* --------------------------------- splash --------------------------------- */
+  React.useEffect(() => {
+    SplashScreen.hideAsync();
+  }, []);
+
+  /* ---------------------------------- theme --------------------------------- */
 
   React.useEffect(() => {
     (async () => {
@@ -82,9 +61,11 @@ export default function RootLayout() {
       const colorTheme = theme === 'dark' ? 'dark' : 'light';
       if (colorTheme !== colorScheme) {
         setColorScheme(colorTheme);
+        setAndroidNavigationBar(colorTheme);
         setIsColorSchemeLoaded(true);
         return;
       }
+      setAndroidNavigationBar(colorTheme);
       setIsColorSchemeLoaded(true);
     })().finally(() => {
       SplashScreen.hideAsync();
@@ -95,19 +76,23 @@ export default function RootLayout() {
     return null;
   }
 
+  /* --------------------------------- return --------------------------------- */
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
+      {/* <BottomSheetModalProvider> */}
       <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
         <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-          <Stack.Screen name="settings" options={{ presentation: 'formSheet' }} />
-          <Stack.Screen name="chat" options={{}} />
-          <Stack.Screen name="tests" options={{}} />
-          <Stack.Screen name="logWorkout" options={{ presentation: 'modal' }} />
+          <Stack.Screen
+            name="chat"
+            options={{ presentation: 'fullScreenModal', headerLeft: headerButtonClose }}
+          />
         </Stack>
       </ThemeProvider>
+      {/* </BottomSheetModalProvider> */}
+      {/* portal host goes here */}
     </GestureHandlerRootView>
   );
 }
