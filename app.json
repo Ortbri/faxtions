@@ -4,6 +4,7 @@
     "slug": "faxion",
     "version": "1.0.0",
     "orientation": "portrait",
+    "owner": "colony-app",
     "icon": "./src/assets/images/faxtionApp.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",

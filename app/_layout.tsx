@@ -84,10 +84,7 @@ export default function RootLayout() {
           <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
           <Stack>
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen
-              name="chat"
-              options={{ presentation: 'fullScreenModal', headerLeft: headerButtonClose }}
-            />
+            <Stack.Screen name="chat" options={{ headerLeft: headerButtonClose }} />
           </Stack>
         </ThemeProvider>
         {/* portal provider */}
