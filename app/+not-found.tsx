@@ -1,4 +1,3 @@
-// import { Text } from '@/src/components/ui/text';
 import { Link, Stack } from 'expo-router';
 import { View } from 'react-native';
 

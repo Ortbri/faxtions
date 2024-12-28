@@ -1,85 +1,118 @@
-import { TextClassContext } from '@/components/ui/text';
-import { cn } from '@/lib/utils';
-import { type VariantProps, cva } from 'class-variance-authority';
-import * as React from 'react';
-import { Pressable } from 'react-native';
+import { ActivityIndicator, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, type UnistylesVariants } from 'react-native-unistyles';
 
-const buttonVariants = cva(
-  'group flex items-center justify-center rounded-md web:ring-offset-background web:transition-colors web:focus-visible:outline-none web:focus-visible:ring-2 web:focus-visible:ring-ring web:focus-visible:ring-offset-2',
-  {
+interface ButtonProps {
+  onPress?: () => void;
+  children: React.ReactNode;
+  loading?: boolean;
+  size?: 'sm' | 'md' | 'lg';
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
+}
+
+export const Button = ({
+  onPress,
+  children,
+  loading = false,
+  size = 'md',
+  variant = 'primary',
+}: ButtonProps) => {
+  /* ---------------------------------- hook ---------------------------------- */
+  styles.useVariants({
+    size,
+    variant,
+  });
+  /* --------------------------------- return --------------------------------- */
+  return (
+    <TouchableOpacity onPress={onPress} disabled={loading} style={styles.button}>
+      {loading ? (
+        <ActivityIndicator color={styles.activityIndicator.color} />
+      ) : (
+        <Text style={styles.text}>{children}</Text>
+      )}
+    </TouchableOpacity>
+  );
+};
+
+const styles = StyleSheet.create((theme, rt) => ({
+  button: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 8,
     variants: {
-      variant: {
-        default: 'bg-primary web:hover:opacity-90 active:opacity-90',
-        destructive: 'bg-destructive web:hover:opacity-90 active:opacity-90',
-        outline:
-          'border border-input bg-background web:hover:bg-accent web:hover:text-accent-foreground active:bg-accent',
-        secondary: 'bg-secondary web:hover:opacity-80 active:opacity-80',
-        ghost: 'web:hover:bg-accent web:hover:text-accent-foreground active:bg-accent',
-        link: 'web:underline-offset-4 web:hover:underline web:focus:underline',
-      },
+      // circular varient for primary second and outline ghost
       size: {
-        default: 'h-10 px-4 py-2 native:h-12 native:px-5 native:py-3',
-        sm: 'h-9 rounded-md px-3',
-        lg: 'h-11 rounded-md px-8 native:h-14',
-        icon: 'h-10 w-10',
+        sm: {
+          paddingVertical: 8,
+          paddingHorizontal: 12,
+          minHeight: 32,
+        },
+        md: {
+          paddingVertical: 10,
+          paddingHorizontal: 16,
+          minHeight: 40,
+        },
+        lg: {
+          paddingVertical: 12,
+          paddingHorizontal: 20,
+          minHeight: 48,
+        },
       },
-    },
-    defaultVariants: {
-      variant: 'default',
-      size: 'default',
+      variant: {
+        primary: {
+          backgroundColor: theme.colors.primary,
+        },
+        secondary: {
+          backgroundColor: theme.colors.secondary,
+        },
+        outline: {
+          backgroundColor: 'transparent',
+          borderWidth: StyleSheet.hairlineWidth,
+          borderColor: theme.colors.primary,
+        },
+        ghost: {
+          backgroundColor: 'transparent',
+        },
+      },
     },
   },
-);
-
-const buttonTextVariants = cva(
-  'web:whitespace-nowrap text-sm native:text-base font-medium text-foreground web:transition-colors',
-  {
+  text: {
     variants: {
-      variant: {
-        default: 'text-primary-foreground',
-        destructive: 'text-destructive-foreground',
-        outline: 'group-active:text-accent-foreground',
-        secondary: 'text-secondary-foreground group-active:text-secondary-foreground',
-        ghost: 'group-active:text-accent-foreground',
-        link: 'text-primary group-active:underline',
-      },
       size: {
-        default: '',
-        sm: '',
-        lg: 'native:text-lg',
-        icon: '',
+        sm: {
+          fontSize: rt.fontScale * 14,
+        },
+        md: {
+          fontSize: rt.fontScale * 16,
+        },
+        lg: {
+          fontSize: rt.fontScale * 18,
+        },
+      },
+      variant: {
+        primary: {
+          color: theme.colors.text,
+          fontWeight: '600',
+        },
+        secondary: {
+          color: theme.colors.text,
+          fontWeight: '600',
+        },
+        outline: {
+          color: theme.colors.primary,
+          fontWeight: '600',
+        },
+        ghost: {
+          color: theme.colors.primary,
+          fontWeight: '500',
+        },
       },
     },
-    defaultVariants: {
-      variant: 'default',
-      size: 'default',
-    },
   },
-);
-
-type ButtonProps = React.ComponentPropsWithoutRef<typeof Pressable> &
-  VariantProps<typeof buttonVariants>;
-
-const Button = React.forwardRef<React.ElementRef<typeof Pressable>, ButtonProps>(
-  ({ className, variant, size, ...props }, ref) => {
-    return (
-      <TextClassContext.Provider
-        value={buttonTextVariants({ variant, size, className: 'web:pointer-events-none' })}
-      >
-        <Pressable
-          className={cn(
-            props.disabled && 'opacity-50 web:pointer-events-none',
-            buttonVariants({ variant, size, className }),
-          )}
-          ref={ref}
-          role="button"
-          {...props}
-        />
-      </TextClassContext.Provider>
-    );
+  activityIndicator: {
+    color: theme.colors.text,
   },
-);
-Button.displayName = 'Button';
+}));
 
-export { Button, buttonTextVariants, buttonVariants };
-export type { ButtonProps };
+// We can also get the type for our props from the stylesheet:
+export type ButtonVariants = UnistylesVariants<typeof styles>;

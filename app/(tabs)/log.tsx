@@ -1,6 +1,10 @@
-import { Redirect } from 'expo-router';
 import React from 'react';
+import { Text, View } from 'react-native';
 
 export default function Log() {
-  return <Redirect href="/(tabs)" />;
+  return (
+    <View>
+      <Text>Log</Text>
+    </View>
+  );
 }

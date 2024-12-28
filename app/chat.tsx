@@ -1,10 +1,10 @@
-import React from 'react';
-import { Text, View } from 'react-native';
+import { View, Text } from 'react-native'
+import React from 'react'
 
-export default function Chat() {
+export default function chat() {
   return (
     <View>
-      <Text>Chat</Text>
+      <Text>chat</Text>
     </View>
-  );
+  )
 }

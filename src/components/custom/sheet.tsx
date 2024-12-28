@@ -10,12 +10,8 @@ import {
 } from "@gorhom/bottom-sheet";
 import type { BottomSheetDefaultFooterProps } from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheetFooter/types";
 import { useTheme } from "@react-navigation/native";
-import { XIcon } from "lucide-react-native";
 import React, { useCallback, useMemo } from "react";
-import { Pressable, StyleSheet, View } from "react-native";
-// import {X}
-// import
-import { X } from "@/lib/icons/X";
+
 
 interface BSheetProps extends Omit<BottomSheetModalProps, "children"> {
   children: React.ReactNode;
@@ -67,17 +63,7 @@ const Sheet = React.forwardRef<BottomSheetModal, BSheetProps>(
         if (footerAction) {
           return (
             <BottomSheetFooter {...props} bottomInset={footerBottomInset}>
-              <View className="flex flex-1 self-end mr-3-">
-                <Pressable
-                  className={
-                    "p-4 rounded-3xl items-center justify-center bg-primary-foreground"
-                  }
-                  onPress={footerAction}
-                  onPressIn={lightHaptic}
-                >
-                  <X className="text-foreground" size={23} strokeWidth={1.25} />
-                </Pressable>
-              </View>
+
             </BottomSheetFooter>
           );
         }
@@ -108,7 +94,6 @@ const Sheet = React.forwardRef<BottomSheetModal, BSheetProps>(
         }}
         backgroundStyle={
           {
-            // backgroundColor: colors.card,
           }
         }
         {...rest}
