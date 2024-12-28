@@ -1,3 +1,9 @@
+/**
+ * If you changed the colors in the ~/global.css
+ * file, update the ~/lib/constants.ts file with the
+ *  new colors. Each color has a commented css variable
+ * name next to it.
+ */
 export const NAV_THEME = {
   light: {
     background: 'hsl(0 0% 100%)', // background
