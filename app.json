@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "faxion",
-    "slug": "faxion",
+    "name": "faxtions",
+    "slug": "faxtions",
     "version": "1.0.0",
     "orientation": "portrait",
     "owner": "colony-app",
@@ -16,14 +16,14 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.ortbit02.faxion"
+      "bundleIdentifier": "com.ortbit02.faxtions"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/images/faxtionApp.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.ortbit02.faxion"
+      "package": "com.ortbit02.faxtions"
     },
     "web": {
       "bundler": "metro",
