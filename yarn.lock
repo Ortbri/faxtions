@@ -6526,11 +6526,6 @@ react-native-is-edge-to-edge@^1.1.6:
   resolved "https://registry.yarnpkg.com/react-native-is-edge-to-edge/-/react-native-is-edge-to-edge-1.1.6.tgz#69ec13f70d76e9245e275eed4140d0873a78f902"
   integrity sha512-1pHnFTlBahins6UAajXUqeCOHew9l9C2C8tErnpGC3IyLJzvxD+TpYAixnCbrVS52f7+NvMttbiSI290XfwN0w==
 
-react-native-nitro-modules@^0.20.1:
-  version "0.20.1"
-  resolved "https://registry.yarnpkg.com/react-native-nitro-modules/-/react-native-nitro-modules-0.20.1.tgz#99568818b90e364f1e08b5341a7868eca3762333"
-  integrity sha512-ffa8GbnLBs7irEx1ZCl7WdHzzA5uj4ngh7hIWbeUfBs8m2iAn+byowOJWHKmO+RA2hp9dVwTxHYSBOqIvTVvHA==
-
 react-native-reanimated@~3.16.1:
   version "3.16.6"
   resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-3.16.6.tgz#fa1eda23b740c893e81a024712346c79f1bbdf36"
@@ -6560,11 +6555,6 @@ react-native-screens@~4.4.0:
   dependencies:
     react-freeze "^1.0.0"
     warn-once "^0.1.0"
-
-react-native-unistyles@3.0.0:
-  version "3.0.0-beta.4"
-  resolved "https://registry.yarnpkg.com/react-native-unistyles/-/react-native-unistyles-3.0.0-beta.4.tgz#ae542a43e243eba2cf87dbecaa35a7134dfde31e"
-  integrity sha512-epCDTHQwoeC2aEfHIWoJFCqCItNe29hv9Cru6nHBRGeQHpbxEZDlbaCS2ntVjxNDhgmoet0uS75qMFPmraxvzw==
 
 react-native-web@~0.19.13:
   version "0.19.13"
