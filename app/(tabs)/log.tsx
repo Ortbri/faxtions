@@ -1,10 +1,6 @@
-import React from 'react';
-import { Text, View } from 'react-native';
+import { Redirect } from "expo-router";
+import React from "react";
 
 export default function Log() {
-  return (
-    <View>
-      <Text>Log</Text>
-    </View>
-  );
+  return <Redirect href="/(tabs)/(index)" />;
 }
