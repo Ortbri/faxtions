@@ -1,7 +1,11 @@
 import { Stack } from 'expo-router';
 import React from 'react';
 
-export default function ProfileLayout() {
+export const unstable_settings = {
+  initialRouteName: 'index',
+};
+
+export default function HomeLayout() {
   return (
     <Stack
       screenOptions={{
@@ -10,7 +14,7 @@ export default function ProfileLayout() {
           : {
               headerLargeTitle: true,
               headerTransparent: true,
-              headerBlurEffect: 'systemChromeMaterial',
+              headerBlurEffect: 'prominent',
               headerLargeTitleShadowVisible: false,
               headerShadowVisible: true,
               headerLargeStyle: {
@@ -18,8 +22,21 @@ export default function ProfileLayout() {
                 backgroundColor: 'transparent',
               },
             }),
-        title: 'Missions',
+        // title: 'Home',
       }}
-    />
+    >
+      <Stack.Screen
+        name="index"
+        options={{
+          title: 'Profile',
+        }}
+      />
+      <Stack.Screen
+        name="settings"
+        options={{
+          title: 'Settings Page',
+        }}
+      />
+    </Stack>
   );
 }

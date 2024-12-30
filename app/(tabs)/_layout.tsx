@@ -7,6 +7,7 @@ import { BlurView } from 'expo-blur';
 import { Tabs } from 'expo-router';
 import type React from 'react';
 import { useCallback, useRef } from 'react';
+import { useColorScheme } from 'react-native';
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
@@ -19,6 +20,7 @@ function TabBarIcon(props: {
 export default function TabLayout() {
   const { lightHaptic } = useHaptics();
   const { colors } = useTheme();
+  const colorScheme = useColorScheme();
 
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
 
@@ -40,10 +42,12 @@ export default function TabLayout() {
 
         tabBarBackground: () => (
           <BlurView
-            intensity={100}
+            intensity={24}
             tint="prominent"
             style={{
               flex: 1,
+              backgroundColor:
+                colorScheme === 'dark' ? 'rgba(0, 0, 0, 0.3)' : 'rgba(255, 255, 255, 0.5)',
             }}
           />
         ),

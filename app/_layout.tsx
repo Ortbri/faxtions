@@ -1,52 +1,38 @@
-import { Ionicons } from '@expo/vector-icons';
-import { DarkTheme, DefaultTheme, type Theme, ThemeProvider } from '@react-navigation/native';
-import { SplashScreen, Stack, router } from 'expo-router';
+import { BaseContextProvider } from '@/providers/BaseProvider';
+import ThemeProvider from '@/providers/ThemeProvider';
+import { useFonts } from 'expo-font';
+import { SplashScreen, Stack } from 'expo-router';
 import * as React from 'react';
-import { useColorScheme } from 'react-native';
-import { GestureHandlerRootView, Pressable } from 'react-native-gesture-handler';
+import { useEffect } from 'react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+// error boundary
 export { ErrorBoundary } from 'expo-router';
 
 // Prevent the splash screen from auto-hiding before getting the color scheme.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  // const { colorScheme, setColorScheme, isDarkColorScheme } = useColorScheme();
-  const theme = useColorScheme();
-  const isDarkColorScheme = theme === 'dark';
-  // const [isColorSchemeLoaded, setIsColorSchemeLoaded] = React.useState(false);
+  /* ---------------------------------- fonts --------------------------------- */
+  const [loaded, error] = useFonts({});
 
-  /* ------------------------------- header text ------------------------------ */
-  const headerButtonClose = () => {
-    return (
-      <Pressable onPressOut={() => router.back()}>
-        <Ionicons name="close" size={24} color={isDarkColorScheme ? 'white' : 'black'} />
-      </Pressable>
-    );
-  };
+  useEffect(() => {
+    if (loaded || error) {
+      SplashScreen.hideAsync();
+    }
+  }, [loaded, error]);
 
-  /* --------------------------------- splash --------------------------------- */
-  React.useEffect(() => {
-    SplashScreen.hideAsync();
-  }, []);
-
+  if (!loaded && !error) {
+    return null;
+  }
   /* --------------------------------- return --------------------------------- */
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <ThemeProvider value={isDarkColorScheme ? DarkTheme : DefaultTheme}>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen
-            name="chat"
-            options={{
-              headerLeft: headerButtonClose,
-              presentation: 'transparentModal',
-              headerShown: false,
-              contentStyle: {
-                backgroundColor: 'transparent',
-              },
-            }}
-          />
-        </Stack>
+      <ThemeProvider>
+        <BaseContextProvider>
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          </Stack>
+        </BaseContextProvider>
       </ThemeProvider>
       {/* portal provider */}
     </GestureHandlerRootView>

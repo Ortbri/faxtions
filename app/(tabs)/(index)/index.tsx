@@ -1,5 +1,7 @@
+import { ThemedText } from '@/components/ui/ThemedText';
+import { useRouter } from 'expo-router';
 import type React from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { Pressable, ScrollView, Text, View } from 'react-native';
 
 interface Item {
   id: string;
@@ -9,19 +11,30 @@ interface Item {
 }
 
 const ItemComponent: React.FC<{ item: Item }> = ({ item }) => {
+  const router = useRouter();
   return (
-    <View
+    <Pressable
       style={{
         padding: 24,
         borderBottomWidth: 1,
-        borderBottomColor: '#eee',
-        backgroundColor: '#fff',
       }}
+      onPress={() =>
+        router.navigate({
+          pathname: '/(tabs)/(index)/workout/[id]',
+          params: { id: item.id },
+        })
+      }
     >
-      <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{item.title}</Text>
-      <Text style={{ color: '#666' }}>{item.description}</Text>
-      <Text style={{ fontSize: 12, color: '#999' }}>{item.created.toLocaleDateString()}</Text>
-    </View>
+      <ThemedText style={{}} weight={800}>
+        {item.title}
+      </ThemedText>
+      <ThemedText style={{ fontSize: 14 }} weight={300}>
+        There was this cool ting that was happening
+      </ThemedText>
+
+      {/* <Text style={{ color: 'white' }}>{item.description}</Text> */}
+      {/* <Text style={{ fontSize: 12, color: '#999' }}>{item.created.toLocaleDateString()}</Text> */}
+    </Pressable>
   );
 };
 
