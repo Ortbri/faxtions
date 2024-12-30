@@ -41,22 +41,7 @@
           "backgroundColor": "#ffffff"
         }
       ],
-      [
-        "expo-font",
-        {
-          "fonts": [
-            "./src/assets/fonts/Nohemi-Thin.ttf",
-            "./src/assets/fonts/Nohemi-ExtraLight.ttf",
-            "./src/assets/fonts/Nohemi-Light.ttf",
-            "./src/assets/fonts/Nohemi-Regular.ttf",
-            "./src/assets/fonts/Nohemi-Medium.ttf",
-            "./src/assets/fonts/Nohemi-SemiBold.ttf",
-            "./src/assets/fonts/Nohemi-Bold.ttf",
-            "./src/assets/fonts/Nohemi-ExtraBold.ttf",
-            "./src/assets/fonts/Nohemi-Black.ttf"
-          ]
-        }
-      ]
+      ["expo-font"]
     ],
     "experiments": {
       "typedRoutes": true,
