@@ -14,18 +14,19 @@ export default function HomeLayout() {
   const backgroundView = () => {
     return (
       <BlurView
-        intensity={24}
+        intensity={60}
         tint="prominent"
         style={[
           {
             backgroundColor:
-              colorScheme === 'dark' ? 'rgba(0, 0, 0, 0.3)' : 'rgba(255, 255, 255, 0.8)',
+              colorScheme === 'dark' ? 'rgba(0, 0, 0, 0.8)' : 'rgba(255, 255, 255, 0.8)',
           },
           StyleSheet.absoluteFill,
         ]}
       />
     );
   };
+  /* --------------------------------- return --------------------------------- */
   return (
     <Stack
       screenOptions={{
@@ -34,16 +35,31 @@ export default function HomeLayout() {
           : {
               // headerLargeTitle: true,
               headerTransparent: true,
-
-              // headerBlurEffect: 'prominent',
+              // // headerStyle: {
+              // //   backgroundColor: 'red',
+              // // },
+              headerBlurEffect: 'prominent',
               headerLargeTitleShadowVisible: false,
+              // headerBackground: () => (
+              //   <BlurView
+              //     intensity={60}
+              //     tint="prominent"
+              //     style={[
+              //       {
+              //         backgroundColor:
+              //           colorScheme === 'dark' ? 'rgba(0, 0, 0, 0.8)' : 'rgba(255, 255, 255, 0.8)',
+              //       },
+              //       StyleSheet.absoluteFill,
+              //     ]}
+              //   />
+              // ),
               headerShadowVisible: true,
               headerLargeStyle: {
                 // NEW: Make the large title transparent to match the background.
-                backgroundColor: colors.background,
+                backgroundColor: colors.card,
               },
             }),
-        headerBackground: backgroundView,
+        // headerBackground: backgroundView,
         // title: 'Home',
       }}
     >

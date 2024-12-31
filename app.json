@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "owner": "colony-app",
-    "icon": "./src/assets/images/faxtionApp.png",
-    "scheme": "myapp",
+    "icon": "./src/assets/images/faxtionsApp.png",
+    "scheme": "faxtions",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
-      "image": "./src/assets/images/faxtionApp.png",
+      "image": "./src/assets/images/faxtionsLogo.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#1a1a1a"
     },
     "ios": {
       "supportsTablet": true,
@@ -20,25 +20,25 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./src/assets/images/faxtionApp.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./src/assets/images/faxtionsApp.png",
+        "backgroundColor": "#1a1a1a"
       },
       "package": "com.ortbit02.faxtions"
     },
     "web": {
       "bundler": "metro",
       "output": "single",
-      "favicon": "./src/assets/images/faxtionApp.png"
+      "favicon": "./src/assets/images/faxtionsLogo.png"
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "image": "./src/assets/images/faxtionApp.png",
+          "image": "./src/assets/images/faxtionsLogo.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
+          "backgroundColor": "#1a1a1a"
         }
       ],
       ["expo-font"]

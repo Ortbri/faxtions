@@ -1,13 +1,13 @@
 import useHaptics from '@/hooks/useHaptics';
 import { Ionicons } from '@expo/vector-icons';
-import Octicons from '@expo/vector-icons/Octicons';
 import type { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useTheme } from '@react-navigation/native';
 import { BlurView } from 'expo-blur';
+import { LinearGradient } from 'expo-linear-gradient';
 import { Tabs } from 'expo-router';
 import type React from 'react';
 import { useCallback, useRef } from 'react';
-import { useColorScheme } from 'react-native';
+import { StyleSheet, View, useColorScheme } from 'react-native';
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
@@ -21,6 +21,7 @@ export default function TabLayout() {
   const { lightHaptic } = useHaptics();
   const { colors } = useTheme();
   const colorScheme = useColorScheme();
+  const styles = createStyles(colors);
 
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
 
@@ -28,7 +29,6 @@ export default function TabLayout() {
     bottomSheetModalRef.current?.present();
   }, []);
 
-  /* --------------------------------- return --------------------------------- */
   return (
     <Tabs
       screenOptions={{
@@ -36,18 +36,18 @@ export default function TabLayout() {
         headerShown: false,
         tabBarStyle: {
           position: 'absolute',
-          backgroundColor: 'trasnparent',
+          backgroundColor: 'transparent',
           borderColor: 'transparent',
         },
 
         tabBarBackground: () => (
           <BlurView
-            intensity={24}
+            intensity={100}
             tint="prominent"
             style={{
               flex: 1,
               backgroundColor:
-                colorScheme === 'dark' ? 'rgba(0, 0, 0, 0.3)' : 'rgba(255, 255, 255, 0.5)',
+                colorScheme === 'dark' ? 'rgba(0, 0, 0, 0.0)' : 'rgba(255, 255, 255, 0.5)',
             }}
           />
         ),
@@ -67,14 +67,27 @@ export default function TabLayout() {
           tabPress: (e) => {
             e.preventDefault();
             lightHaptic();
-            console.log('tabPress');
             handlePresentModalPress();
           },
         }}
         options={{
           tabBarIcon: ({ focused }) => {
             return (
-              <TabBarIcon name={focused ? 'sparkles' : 'sparkles-outline'} color={colors.text} />
+              <View style={styles.aiButtonContainer}>
+                <LinearGradient
+                  colors={['#7C3AED', '#3B82F6']}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                  style={styles.aiButton}
+                >
+                  <Ionicons
+                    name="sparkles"
+                    size={20}
+                    color="#fff"
+                    // style={{ transform: [{ translateY: -12 }] }}
+                  />
+                </LinearGradient>
+              </View>
             );
           },
         }}
@@ -90,3 +103,27 @@ export default function TabLayout() {
     </Tabs>
   );
 }
+
+const createStyles = (colors) =>
+  StyleSheet.create({
+    aiButtonContainer: {
+      marginBottom: -24,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    aiButton: {
+      width: 46,
+      height: 46,
+      borderRadius: 28,
+      justifyContent: 'center',
+      alignItems: 'center',
+      shadowColor: colors.primary,
+      shadowOffset: {
+        width: 0,
+        height: 4,
+      },
+      shadowOpacity: 0.3,
+      shadowRadius: 4.65,
+      elevation: 8,
+    },
+  });

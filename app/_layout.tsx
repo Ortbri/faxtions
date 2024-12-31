@@ -1,5 +1,6 @@
 import { BaseContextProvider } from '@/providers/BaseProvider';
 import ThemeProvider from '@/providers/ThemeProvider';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
 import * as React from 'react';
@@ -31,6 +32,10 @@ export default function RootLayout() {
         <BaseContextProvider>
           <Stack>
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen
+              name="(ai)"
+              options={{ headerShown: false, presentation: 'fullScreenModal' }}
+            />
           </Stack>
         </BaseContextProvider>
       </ThemeProvider>
