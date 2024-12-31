@@ -9,19 +9,12 @@ export const unstable_settings = {
 export default function HomeLayout() {
   const { colors } = useTheme();
   return (
-    <Stack
-      screenOptions={
-        {
-          // title: 'Home',
-        }
-      }
-    >
+    <Stack>
       <Stack.Screen
         name="index"
         options={{
           title: 'red',
-          // headerShown: false,
-          // headerLargeTitle: true,
+          headerTransparent: true,
           headerLargeStyle: {
             backgroundColor: colors.background,
           },

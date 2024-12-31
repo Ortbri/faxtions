@@ -15,7 +15,7 @@ export default function HomeLayout() {
       }
     >
       <Stack.Screen
-        name="index"
+        name="chat"
         options={{
           title: 'AI Chat',
         }}

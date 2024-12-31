@@ -12,11 +12,11 @@ export default function Profile() {
   const tabBarHeight = useBottomTabBarHeight();
   return (
     <ScrollView
-      contentInsetAdjustmentBehavior="automatic"
+      // contentInsetAdjustmentBehavior="automatic"
       style={styles.container}
-      contentContainerStyle={{
-        paddingBottom: tabBarHeight,
-      }}
+      // contentContainerStyle={{
+      //   paddingBottom: tabBarHeight,
+      // }}
     >
       <View style={styles.header}>
         <Image
@@ -84,8 +84,8 @@ export default function Profile() {
 const createStyles = (colors) =>
   StyleSheet.create({
     container: {
-      flex: 1,
-      backgroundColor: colors.background,
+      // flex: 1,
+      // backgroundColor: colors.background,
     },
     header: {
       alignItems: 'center',

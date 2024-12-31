@@ -19,7 +19,7 @@ export default function Home() {
           paddingTop: 14,
           paddingBottom: tabBarHeight,
         }}
-        renderItem={({ item, index }) => <WorkoutPostItem key={index.toString()} />}
+        renderItem={({ index }) => <WorkoutPostItem key={index.toString()} />}
       />
     </BottomSheetModalProvider>
   );

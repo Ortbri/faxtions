@@ -12,6 +12,10 @@ export { ErrorBoundary } from 'expo-router';
 // Prevent the splash screen from auto-hiding before getting the color scheme.
 SplashScreen.preventAutoHideAsync();
 
+export const unstable_settings = {
+  initialRouteName: '(tabs)',
+};
+
 export default function RootLayout() {
   /* ---------------------------------- fonts --------------------------------- */
   const [loaded, error] = useFonts({});

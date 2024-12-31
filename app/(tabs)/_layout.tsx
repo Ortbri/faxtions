@@ -71,7 +71,7 @@ export default function TabLayout() {
           },
         }}
         options={{
-          tabBarIcon: ({ focused }) => {
+          tabBarIcon: () => {
             return (
               <View style={styles.aiButtonContainer}>
                 <LinearGradient
@@ -80,12 +80,7 @@ export default function TabLayout() {
                   end={{ x: 1, y: 1 }}
                   style={styles.aiButton}
                 >
-                  <Ionicons
-                    name="sparkles"
-                    size={20}
-                    color="#fff"
-                    // style={{ transform: [{ translateY: -12 }] }}
-                  />
+                  <Ionicons name="sparkles" size={20} color="#fff" />
                 </LinearGradient>
               </View>
             );
@@ -104,7 +99,7 @@ export default function TabLayout() {
   );
 }
 
-const createStyles = (colors) =>
+const createStyles = (colors: any) =>
   StyleSheet.create({
     aiButtonContainer: {
       marginBottom: -24,
