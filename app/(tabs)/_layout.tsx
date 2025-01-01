@@ -1,12 +1,11 @@
 import useHaptics from '@/hooks/useHaptics';
 import { Ionicons } from '@expo/vector-icons';
-import type { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useTheme } from '@react-navigation/native';
 import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Tabs } from 'expo-router';
+import { Tabs, router } from 'expo-router';
 import type React from 'react';
-import { useCallback, useRef } from 'react';
+
 import { StyleSheet, View, useColorScheme } from 'react-native';
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
@@ -23,12 +22,7 @@ export default function TabLayout() {
   const colorScheme = useColorScheme();
   const styles = createStyles(colors);
 
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
-
-  const handlePresentModalPress = useCallback(() => {
-    bottomSheetModalRef.current?.present();
-  }, []);
-
+  /* --------------------------------- return --------------------------------- */
   return (
     <Tabs
       screenOptions={{
@@ -67,7 +61,7 @@ export default function TabLayout() {
           tabPress: (e) => {
             e.preventDefault();
             lightHaptic();
-            handlePresentModalPress();
+            router.navigate('/(ai)/chat');
           },
         }}
         options={{

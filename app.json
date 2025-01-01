@@ -27,7 +27,6 @@
     },
     "web": {
       "bundler": "metro",
-      "output": "single",
       "favicon": "./src/assets/images/faxtionsLogo.png"
     },
     "plugins": [
