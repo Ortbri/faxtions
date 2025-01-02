@@ -2,20 +2,21 @@
 'use server';
 
 import OpenAI from 'openai';
-import { Text } from 'react-native';
 import { Suspense } from 'react';
+import { Text } from 'react-native';
 
 const openai = new OpenAI({
-  apiKey: process.env.EXPO_PUBLIC_OPENAI_API_KEY
+  apiKey: process.env.EXPO_PUBLIC_OPENAI_API_KEY,
 });
 
 async function askLLMAsync(message: string) {
   const stream = await openai.chat.completions.create({
-    model: "gpt-3.5-turbo",
-    messages: [{ role: "user", content: message }],
+    model: 'gpt-3.5-turbo',
+    messages: [{ role: 'user', content: message }],
     stream: true,
+    max_tokens: 400,
   });
-  
+
   // Convert OpenAI stream to Web API ReadableStream
   const readableStream = new ReadableStream({
     async start(controller) {
@@ -26,7 +27,7 @@ async function askLLMAsync(message: string) {
         }
       }
       controller.close();
-    }
+    },
   });
 
   return readableStream;
@@ -34,11 +35,11 @@ async function askLLMAsync(message: string) {
 
 async function RecursiveText({ buffer }: { buffer: ReadableStreamDefaultReader }) {
   const { done, value } = await buffer.read();
-  
+
   if (done) return null;
-  
+
   const text = new TextDecoder().decode(value);
-  
+
   return (
     <Text>
       {text}

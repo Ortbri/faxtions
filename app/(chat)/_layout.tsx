@@ -1,29 +1,54 @@
-import { Ionicons } from '@expo/vector-icons';
+import { useTheme } from '@react-navigation/native';
+import { BlurView } from 'expo-blur';
+
 import { Stack, router } from 'expo-router';
 import React from 'react';
-import { Pressable } from 'react-native';
+import { StyleSheet, View, useColorScheme } from 'react-native';
 
 export const unstable_settings = {
   initialRouteName: 'index',
 };
 
 export default function HomeLayout() {
+  const { colors } = useTheme();
+  const colorScheme = useColorScheme();
   /* ---------------------------------- back ---------------------------------- */
-  const backButton = () => {
-    return (
-      <Pressable onPress={() => router.back()}>
-        <Ionicons name="close" size={24} color="black" />
-      </Pressable>
-    );
-  };
+
   /* --------------------------------- return --------------------------------- */
   return (
     <Stack>
       <Stack.Screen
         name="chat"
         options={{
-          title: 'AI Chat',
-          headerLeft: backButton,
+          title: '',
+          headerTransparent: true,
+          headerTitle: () => (
+            <View
+              style={{
+                width: 36,
+                height: 5,
+                backgroundColor: colors.border,
+                borderRadius: 2.5,
+                // marginTop: 8,
+              }}
+            />
+          ),
+          headerBackground: () => (
+            <BlurView
+              intensity={100}
+              tint="light"
+              style={{
+                flex: 1,
+                borderBottomWidth: StyleSheet.hairlineWidth,
+                borderBottomColor: colors.border,
+                backgroundColor:
+                  colorScheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.7)',
+              }}
+            />
+          ),
+          contentStyle: {
+            backgroundColor: colors.card,
+          },
         }}
       />
     </Stack>
