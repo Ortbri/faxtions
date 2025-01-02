@@ -30,7 +30,12 @@
       "favicon": "./src/assets/images/faxtionsLogo.png"
     },
     "plugins": [
-      "expo-router",
+      [
+        "expo-router",
+        {
+          "origin": "http://localhost:8081"
+        }
+      ],
       [
         "expo-splash-screen",
         {
@@ -40,18 +45,20 @@
           "backgroundColor": "#1a1a1a"
         }
       ],
-      ["expo-font"]
+      [
+        "expo-font"
+      ]
     ],
     "experiments": {
-      "typedRoutes": true,
-      "reactServerFunctions": true
+      "reactServerFunctions": true,
+      "typedRoutes": true
     },
     "extra": {
       "router": {
-        "origin": false
+        "origin": "http://localhost:8081"
       },
       "eas": {
-        "projectId": "f138485b-155a-4583-9cea-ca581d4361f1"
+        "projectId": "d8640f3c-e8c7-4496-abf7-b0cc7f3002ea"
       }
     },
     "runtimeVersion": {

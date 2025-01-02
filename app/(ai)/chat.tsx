@@ -1,18 +1,32 @@
 /// <reference types="react/canary" />
+// import '@/global.css';
 
-import renderInfo from '@/actions/render-info';
+// import { renderUpcomingLaunches } from '@/functions/render-launches';
+import { renderUpcomingLaunches } from '@/actions/render-launches';
+import { BodyScrollView } from '@/components/ui/BodyScrollView';
+import { useCallback, useState } from 'react';
 import React from 'react';
-import { ActivityIndicator } from 'react-native';
+import { RefreshControl, Text } from 'react-native';
 
-export default function Chat() {
+// import { IndexLoading } from '@/components/index-loading';
+
+export default function HomeScreen(_: { dom?: import('expo/dom').DOMProps }) {
+  const [refreshing, setRefreshing] = useState(false);
+  const [renderKey, setRenderKey] = useState('123');
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    // Re-invoke the renderUpcomingLaunches function
+    setRenderKey(Math.random().toString());
+    setRefreshing(false);
+  }, []);
+
   return (
-    <React.Suspense
-      fallback={
-        // The view that will render while the Server Function is awaiting data.
-        <ActivityIndicator />
-      }
+    <BodyScrollView
+      refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
     >
-      {renderInfo({ name: 'World' })}
-    </React.Suspense>
+      <React.Suspense key={renderKey} fallback={<Text>Loading...</Text>}>
+        {renderUpcomingLaunches()}
+      </React.Suspense>
+    </BodyScrollView>
   );
 }
