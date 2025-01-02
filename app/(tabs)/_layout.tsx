@@ -5,7 +5,6 @@ import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Tabs, router } from 'expo-router';
 import type React from 'react';
-
 import { StyleSheet, View, useColorScheme } from 'react-native';
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
@@ -61,7 +60,7 @@ export default function TabLayout() {
           tabPress: (e) => {
             e.preventDefault();
             lightHaptic();
-            router.navigate('/(ai)/chat');
+            router.navigate('/(chat)/chat');
           },
         }}
         options={{

@@ -37,7 +37,7 @@ export default function RootLayout() {
           <Stack>
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
             <Stack.Screen
-              name="(ai)"
+              name="(chat)"
               options={{ headerShown: false, presentation: 'fullScreenModal' }}
             />
           </Stack>

@@ -3,10 +3,7 @@ import { ThemedView } from '@/components/ui/ThemedView';
 import { useLocalSearchParams } from 'expo-router';
 import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
-// import { ThemedText } from '../../../src/components/ui/ThemedText';
-// import { ThemedView } from '../../../src/components/ui/ThemedView';
 
-// Mock data - Replace this with actual data fetching logic
 const mockWorkout = {
   id: '1',
   title: 'Full Body Workout',
