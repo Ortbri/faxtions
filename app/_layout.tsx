@@ -37,11 +37,12 @@ export default function RootLayout() {
         <BaseContextProvider>
           <AIBaseContextProvider>
             <Stack>
-              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+              <Stack.Screen name="(auth)" options={{ headerShown: false }} />
               <Stack.Screen
                 name="(chat)"
                 options={{ headerShown: false, presentation: 'fullScreenModal' }}
               />
+              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
             </Stack>
           </AIBaseContextProvider>
         </BaseContextProvider>
