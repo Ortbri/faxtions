@@ -1,9 +1,10 @@
+import useHaptics from '@/hooks/useHaptics';
 import { useTheme } from '@react-navigation/native';
 import { BlurView } from 'expo-blur';
 
 import { Stack, router } from 'expo-router';
 import React from 'react';
-import { StyleSheet, View, useColorScheme } from 'react-native';
+import { Pressable, StyleSheet, View, useColorScheme } from 'react-native';
 
 export const unstable_settings = {
   initialRouteName: 'index',
@@ -12,6 +13,7 @@ export const unstable_settings = {
 export default function HomeLayout() {
   const { colors } = useTheme();
   const colorScheme = useColorScheme();
+  const { lightHaptic } = useHaptics();
   /* ---------------------------------- back ---------------------------------- */
 
   /* --------------------------------- return --------------------------------- */
@@ -23,11 +25,13 @@ export default function HomeLayout() {
           title: '',
           headerTransparent: true,
           headerTitle: () => (
-            <View
+            <Pressable
+              onPressIn={lightHaptic}
+              onPress={() => router.back()}
               style={{
                 width: 36,
                 height: 5,
-                backgroundColor: colors.border,
+                backgroundColor: 'rgba(0,0,0,0.3)',
                 borderRadius: 2.5,
                 // marginTop: 8,
               }}

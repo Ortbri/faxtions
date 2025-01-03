@@ -1,3 +1,4 @@
+import { AIBaseContextProvider } from '@/providers/AIProvider';
 import { BaseContextProvider } from '@/providers/BaseProvider';
 import ThemeProvider from '@/providers/ThemeProvider';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
@@ -34,13 +35,15 @@ export default function RootLayout() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <ThemeProvider>
         <BaseContextProvider>
-          <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen
-              name="(chat)"
-              options={{ headerShown: false, presentation: 'fullScreenModal' }}
-            />
-          </Stack>
+          <AIBaseContextProvider>
+            <Stack>
+              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+              <Stack.Screen
+                name="(chat)"
+                options={{ headerShown: false, presentation: 'fullScreenModal' }}
+              />
+            </Stack>
+          </AIBaseContextProvider>
         </BaseContextProvider>
       </ThemeProvider>
       {/* portal provider */}

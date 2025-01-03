@@ -3,6 +3,7 @@
 import { sendMessage } from '@/actions/ai-processor';
 import * as AColors from '@bacons/apple-colors';
 import { Ionicons } from '@expo/vector-icons';
+import { useHeaderHeight } from '@react-navigation/elements';
 import { useTheme } from '@react-navigation/native';
 import { BlurView } from 'expo-blur';
 import { Stack, router } from 'expo-router';
@@ -10,6 +11,8 @@ import { Stack, router } from 'expo-router';
 import { SFSymbol, SymbolView, SymbolViewProps } from 'expo-symbols';
 import type React from 'react';
 import { Suspense, useEffect, useRef, useState } from 'react';
+import * as DropdownMenu from 'zeego/dropdown-menu';
+
 import {
   Animated,
   Keyboard,
@@ -36,6 +39,8 @@ interface ChatMessage {
 
 export default function Profile() {
   /* ---------------------------------- hooks --------------------------------- */
+  const headerHeight = useHeaderHeight();
+  const insets = useSafeAreaInsets();
   const keyboardValue = useKeyboardAnimation();
   // console.log('keyboardValue', keyboardValue);
   /* ---------------------------------- state --------------------------------- */
@@ -93,26 +98,53 @@ export default function Profile() {
         }}
       >
         {/* prompt */}
-        <View
-          style={{
-            maxWidth: '80%',
-            alignSelf: 'flex-end',
-            paddingHorizontal: 10,
-            paddingVertical: 10,
-            borderRadius: 18,
-            alignItems: 'flex-end',
-            justifyContent: 'flex-end',
-            backgroundColor: '#000000',
-          }}
-        >
-          <Text
+        <View>
+          <View
             style={{
-              fontWeight: '500',
-              color: 'white',
+              maxWidth: '80%',
+              alignSelf: 'flex-end',
+              paddingHorizontal: 14,
+              paddingVertical: 10,
+              borderRadius: 24,
+              alignItems: 'flex-end',
+              justifyContent: 'flex-end',
+              backgroundColor: '#000000',
             }}
           >
-            {item.prompt}
-          </Text>
+            <Text
+              style={{
+                fontWeight: '500',
+                color: 'white',
+              }}
+            >
+              {item.prompt}
+            </Text>
+          </View>
+          <View
+            style={{
+              position: 'absolute',
+              height: 18,
+              width: 18,
+              backgroundColor: 'white',
+              alignSelf: 'flex-end',
+              borderRadius: 14,
+              // justifyContent: 'flex-end',
+              bottom: -4,
+              right: -4,
+            }}
+          />
+          <View
+            style={{
+              position: 'absolute',
+              height: 14,
+              width: 14,
+              backgroundColor: '#000000',
+              alignSelf: 'flex-end',
+              borderRadius: 30,
+              bottom: -2,
+              right: -2,
+            }}
+          />
         </View>
 
         {/* suspense for server components */}
@@ -148,60 +180,107 @@ export default function Profile() {
               {/* <Ionicons name="analy" size={14} color={'white'} /> */}
             </View>
 
-            <Text style={{ flex: 1 }}>{item.response}</Text>
+            <View>
+              <Text style={{ flex: 1, fontSize: 15, lineHeight: 22 }}>{item.response}</Text>
+              {/* have ai generate some ui for the response */}
+            </View>
           </View>
         </Suspense>
       </View>
     );
   };
 
-  // const backButton = () => {
+  // const headerRight = () => {
   //   return (
-  //     <Pressable onPress={() => router.back()} style={{ padding: 6, borderRadius: 24 }}>
-  //         <SymbolView
-  //                 name=""
-  //         tintColor={'black'}
-  //         style={{
-  //           width: 30,
-  //           height: 30,
-  //         }}
-  //         type="palette"
-  //       />
+  //     <DropdownMenu.Root open={isOpen} onOpenChange={setIsOpen}>
+  //       <DropdownMenu.Trigger>
+  //         <Pressable>
+  //           <SymbolView
+  //             name="sparkle"
+  //             tintColor={'darkgray'}
+  //             style={{
+  //               width: 25,
+  //               height: 25,
+  //             }}
+  //             type="palette"
+  //           />
+  //         </Pressable>
+  //       </DropdownMenu.Trigger>
 
-  //       {/* <Ionicons name="close" size={18} color={AColors.systemBackground} /> */}
-  //     </Pressable>
+  //       <DropdownMenu.Content>
+  //         <DropdownMenu.Item key="new">
+  //           <DropdownMenu.ItemTitle>New Chat</DropdownMenu.ItemTitle>
+  //           <DropdownMenu.ItemIcon
+  //             ios={{
+  //               name: 'sparkle',
+  //             }}
+  //           />
+  //         </DropdownMenu.Item>
+
+  //         <DropdownMenu.Item key="clear">
+  //           <DropdownMenu.ItemTitle>Clear History</DropdownMenu.ItemTitle>
+  //           <DropdownMenu.ItemIcon
+  //             ios={{
+  //               name: 'sparkle',
+  //             }}
+  //           />
+  //         </DropdownMenu.Item>
+
+  //         <DropdownMenu.Separator />
+
+  //         <DropdownMenu.Item key="settings">
+  //           <DropdownMenu.ItemTitle>Settings</DropdownMenu.ItemTitle>
+  //           <DropdownMenu.ItemIcon
+  //             ios={{
+  //               name: 'sparkle',
+  //             }}
+  //           />
+  //         </DropdownMenu.Item>
+  //       </DropdownMenu.Content>
+  //     </DropdownMenu.Root>
   //   );
   // };
+
+  // const [isOpen, setIsOpen] = useState(false);
   /* --------------------------------- return --------------------------------- */
   return (
     <>
       <Stack.Screen
         options={
           {
-            // headerLeft: backButton,
-            // headerRight: backButton,
+            // headerRight,
           }
         }
       />
       <View style={{ flex: 1 }}>
+        {/* just a small ui feature here */}
+
         <Animated.FlatList
+          // contentInset={{
+          //   // bottom: insets.bottom,
+          // }}
+          // scrollIndicatorInsets={{
+          //   bottom: 400,
+          // }}
           // contentInsetAdjustmentBehavior="automatic"
           ref={flatListRef}
           data={messages}
           inverted
           renderItem={renderMessage}
           contentContainerStyle={{
-            // p
-            // paddingBottom: 14,
-            // paddingTop: 14,
-            // paddingBottom: 100,
             gap: 24,
+            // TOP
+            paddingBottom: headerHeight + 10,
+            // BOTTOM
+            paddingTop: insets.bottom + 46 + 8 + 10,
           }}
+          // BOTTOM OF THE Flatlist
           ListHeaderComponentStyle={
             {
               // backgroundColor: 'red',
             }
           }
+          // TOP OF THE Flatlist
           ListFooterComponentStyle={
             {
               // backgroundColor: 'red',
@@ -209,7 +288,6 @@ export default function Profile() {
             }
           }
         />
-
         <ChatInput
           value={prompt}
           setValue={setPrompt}
@@ -246,56 +324,88 @@ const ChatInput = ({
 
   const inputAnimatedStyle = useAnimatedStyle(() => ({
     transform: [{ translateY: -sharedValue.value }],
-    bottom: 0,
+    // bottom: 0,
   }));
+
+  // height of input is what?
+
+  // 46 + bottom + 8
+
   return (
-    <BlurView
-      intensity={100}
-      tint="light"
-      style={{
-        paddingBottom: bottom,
-        paddingHorizontal: 10,
-        paddingTop: 8,
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
-      }}
-      // style={[
-      //   {
-      //     paddingBottom: bottom,
-      //     marginHorizontal: 10,
-      //     position: 'absolute',
-      //     bottom: 0,
-      //     left: 0,
-      //     right: 0,
-      //   },
-      //   inputAnimatedStyle,
-      // ]}
-    >
-      <View
+    <View>
+      <BlurView
+        intensity={100}
+        tint="light"
         style={{
-          flexDirection: 'row',
-          borderRadius: 30,
-          minHeight: 46,
-          overflow: 'hidden',
-          backgroundColor: colors.border,
+          paddingBottom: bottom,
+          paddingHorizontal: 10,
+          paddingTop: 8,
+          position: 'absolute',
+          backgroundColor:
+            colorScheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.7)',
+          bottom: 0,
+          left: 0,
+          right: 0,
         }}
       >
-        <TextInput
-          value={value}
-          onChangeText={setValue}
-          onSubmitEditing={onSubmit}
-          placeholder="Ask anything..."
+        <View
           style={{
-            flex: 1,
-            padding: 10,
-            borderRadius: 8,
-            backgroundColor: 'transparent',
+            flexDirection: 'row',
+            borderRadius: 30,
+            minHeight: 46,
+            overflow: 'hidden',
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor:
+              colorScheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(244,244,244,1)',
           }}
-        />
-      </View>
-    </BlurView>
+        >
+          <SymbolView
+            name="plus"
+            tintColor={'black'}
+            style={{
+              width: 21,
+              height: 21,
+              // backgroundColor: 'red',
+              marginLeft: 10,
+            }}
+            type="palette"
+          />
+          <TextInput
+            value={value}
+            onChangeText={setValue}
+            onSubmitEditing={onSubmit}
+            placeholder="Message"
+            style={{
+              flex: 1,
+              padding: 10,
+              borderRadius: 8,
+              backgroundColor: 'transparent',
+              fontWeight: '500',
+              fontSize: 16,
+            }}
+          />
+          <Pressable
+            style={{ marginRight: 10, padding: 5, backgroundColor: 'black', borderRadius: 24 }}
+          >
+            <SymbolView
+              name="microphone"
+              tintColor={'white'}
+              style={{
+                width: 21,
+                height: 21,
+                // backgroundColor: 'red',
+                // backgroundColor: 'red',
+                // padding: 10,
+                // marginRight: 10,
+              }}
+              type="palette"
+            />
+          </Pressable>
+        </View>
+      </BlurView>
+      <Animated.View style={inputAnimatedStyle} />
+    </View>
   );
 };
 
@@ -415,84 +525,3 @@ const exampleMsg = [
       'You can use libraries like Firebase Cloud Messaging or OneSignal, request user permissions, handle both foreground and background notifications, and implement proper notification channels for Android.',
   },
 ];
-
-/* ------------------------------ example usage ----------------------------- */
-
-// const ChatMessages = ({ messages }: { messages: ChatMessage[] }) => {
-//   return (
-//     <Animated.ScrollView
-//       style={[{ flex: 1 }, scrollViewAnimatedStyle]}
-//       contentContainerStyle={{ gap: 20 }}
-//     >
-//       {messages.map((msg) => (
-//         <View
-//           key={msg.id}
-//           style={{
-//             padding: 10,
-//             borderRadius: 8,
-//             gap: 24,
-//           }}
-//         >
-//           {/* prompt */}
-//           <View
-//             style={{
-//               maxWidth: '80%',
-//               alignSelf: 'flex-end',
-//               paddingHorizontal: 10,
-//               paddingVertical: 10,
-//               borderRadius: 18,
-//               alignItems: 'flex-end',
-//               justifyContent: 'flex-end',
-//               backgroundColor: '#000000',
-//             }}
-//           >
-//             <Text
-//               style={{
-//                 fontWeight: '500',
-//                 color: 'white',
-//               }}
-//             >
-//               {msg.prompt}
-//             </Text>
-//           </View>
-
-//           {/* suspense for server components */}
-//           <Suspense fallback={<Text>Generating...</Text>}>
-//             <View
-//               style={{
-//                 flex: 1,
-//                 flexDirection: 'row',
-//                 gap: 14,
-//               }}
-//             >
-//               {/* random circle for now */}
-//               <View
-//                 style={{
-//                   justifyContent: 'center',
-//                   alignItems: 'center',
-//                   borderRadius: 30,
-//                   alignSelf: 'flex-start',
-//                 }}
-//               >
-//                 {/* <Expoic */}
-//                 <SymbolView
-//                   name="apple.intelligence"
-//                   tintColor={'black'}
-//                   style={{
-//                     width: 30,
-//                     height: 30,
-//                   }}
-//                   type="palette"
-//                 />
-
-//                 {/* <Ionicons name="analy" size={14} color={'white'} /> */}
-//               </View>
-
-//               <Text style={{ flex: 1 }}>{msg.response}</Text>
-//             </View>
-//           </Suspense>
-//         </View>
-//       ))}
-//     </Animated.ScrollView>
-//   );
-// };
